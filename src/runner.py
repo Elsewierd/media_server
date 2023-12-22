@@ -1,7 +1,9 @@
 import argparse, json, uuid
+import sys
 from os import path, rename
 
-from api.TMDBWrapper import TMDBWrapper
+from data import static
+from .api.TMDBWrapper import TMDBWrapper
 
 def main():
     run_type, key, value = cli_parse()
@@ -11,7 +13,12 @@ def main():
             set_preference(key, value)
         except (KeyError, FileNotFoundError) as e:
             print(e)
+    
+    if run_type is None:
+        pass # Run GUI
 
+    else:
+        terminal_runner()
 
 
 def cli_parse():
@@ -35,22 +42,39 @@ def cli_parse():
     
     return None, None, None
 
-def set_preference(key, value):
-    preferences_json = './data/preferences.json'
+
+def load_preferences(path_to_pref):
     try:
-        with open(preferences_json, 'r') as f:
-            data = json.load(f)
-            try:
-                data[key] = value
-            except KeyError as e:
-                raise e(f'Key: {key} does not exist.')
+        with open(path_to_pref, 'r') as f:
+            data_json = json.load(f)            
     except FileNotFoundError as e:
-        raise e(f'Problem opening file: {preferences_json}')
+        raise e(f'Problem opening file: {path_to_pref}')
+    return data_json
+
+
+def set_preference(key, value):
+    local_json = static.PREFERENCES_JSON
+    data_json = load_preferences(local_json)
+    try:
+        data_json[key] = value
+    except KeyError as e:
+        raise e(f'Key: {key} does not exist.')
     # create randomly named temporary file to avoid 
     # interference with other thread/asynchronous request
-    tempfile = path.join(path.dirname(preferences_json ), str(uuid.uuid4()))
+    tempfile = path.join(path.dirname(local_json), str(uuid.uuid4()))
     with open(tempfile, 'w') as f:
-        json.dump(data, f, indent=4)
+        json.dump(data_json, f, indent=4)
 
     # rename temporary file replacing old file
-    rename(tempfile, preferences_json)
+    rename(tempfile, local_json)
+
+
+def terminal_runner():
+    try:
+        user_prefs = load_preferences(static.PREFERENCES_JSON)
+    except Exception as e:
+        print(e)
+        sys.exit(1)
+    tmdbw = TMDBWrapper()
+    tmdbw.api_key(user_prefs['api_key'])
+    tmdbw.language(user_prefs['language'])
