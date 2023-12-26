@@ -1,43 +1,55 @@
-from tmdbv3api import TV, Movie, TMDb
 
-API_KEY = "a3a7bab86fcaab64c6a13deccc2c5134"
+from tmdbv3api import TV, Movie, TMDb, Season, Episode
 
-
-class TMDBWrapper():
-    def __init__(self) -> None:
+class TMDBManager:
+    def __init__(self, api_key=None, language=None):
         self._tmdb = TMDb()
-        self._api_key = None
-        self._language = None
-        self._movie = None
-        self._series = None
+        self.api_key = api_key
+        self.language = language
+        self._movie = Movie()
+        self._series = TV()
+        self._season = Season()
+        self._episode = Episode()
 
     @property
-    def api_key(self, api_key):
-        self._api_key = api_key
-        if self._tmdb is not None:
-            self._tmdb.api_key = self._api_key
+    def api_key(self):
         return self._api_key
 
-    @property
-    def language(self, language):
-        self._language = language
+    @api_key.setter
+    def api_key(self, value):
+        self._api_key = value
         if self._tmdb is not None:
-            self._tmdb.language = self._language
+            self._tmdb.api_key = value
+
+    @property
+    def language(self):
         return self._language
 
+    @language.setter
+    def language(self, value):
+        self._language = value
+        if self._tmdb is not None:
+            self._tmdb.language = value
+
+    @property
     def movie(self):
-        if self._movie is None:
-            self._movie = Movie()
         return self._movie
 
+    @property
     def series(self):
-        if self._series is None:
-            self._series = TV()
         return self._series
 
-    def search(self, media_type, query):
+    @property
+    def season(self):
+        return self._season
+
+    @property
+    def episode(self):
+        return self._episode
+
+    def search(self, media_type:str, query:str):
         try:
-            property_instance = getattr(self, media_type)
+            property_instance = getattr(self, media_type.lower())
         except AttributeError("Attribute {media_type} does not exist") as e:
             print(f'Error: {e}')
             return None
@@ -55,6 +67,8 @@ class TMDBWrapper():
             print(f'Error: {e}')
             return None
         output = property_instance.details(id)
+        if args is None:
+            return output
         for arg in args:
             try:
                 value_instance = getattr(output, arg)
@@ -63,10 +77,3 @@ class TMDBWrapper():
             else:
                 detail_dict[arg] = value_instance
         return detail_dict
-
-
-# TODO: Add properties for seasons, episodes, and a details method
-def media(func):
-    def wrapper():
-        func()
-    return wrapper
