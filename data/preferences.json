@@ -2,5 +2,6 @@
     "api_key": "a3a7bab86fcaab64c6a13deccc2c5134",
     "language": "en",
     "media_exts": ["avi", "mkv", "m4v", "mp4"],
+    "excluded_exts": ["nfo"],
     "invalid_chars": ["\\", "/", ":", "*", "?", "\"", "<", ">", "|"]
 }

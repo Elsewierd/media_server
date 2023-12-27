@@ -1,0 +1,72 @@
+Books
+├── Audiobooks
+│   ├── Author
+│   │   ├── Book1.flac
+│   │   └── Book2.flac
+│   └── Book
+│       ├── Chapter1.flac
+│       └── Chapter2.flac
+└── Books
+    └── Author
+        ├── Book1.epub
+        ├── Book2.epub
+        ├── Book
+        │   ├── Book1.epub
+        │   ├── cover.ext
+        │   └── metadata.opf
+        └── Book3.mp3
+azw, azw3, cb7, cbr, cbt, cbz, epub, mobi, and pdf
+
+Comics
+├── Plastic Man #002 (1944).cbz
+├── Attack on Titan #001 (2012).cbz
+└── Comic (2008)
+    ├── ComicInfo.xml
+    └── Comic #001 (2008).cbr
+
+Movies
+├── Film (1990).mp4
+├── Film (1994).mp4
+├── Film (2008) [tmdbid-xxxx]
+│   └── Film.mkv
+├── Film (2010)
+│   ├── Film-cd1.avi
+│   └── Film-cd2.avi
+└── Best_Movie_Ever (2019)
+    ├── Best_Movie_Ever (2019) - 1080P.mp4
+    ├── Best_Movie_Ever (2019) - 720P.mp4
+    ├── Best_Movie_Ever (2019) - Directors Cut.mp4
+    ├── behind the scenes
+    │   ├── Making of the Best Movie Ever.mp4
+    │   └── Finding the right score.mp4
+    ├── interviews
+    │   └── Interview with the Director.mp4
+    └── extras
+        └── Home recreation.mp4
+
+/Music
+    /Artist
+        /Album
+            01 - Song.mp3
+            02 - Song.mp3
+
+Shows
+├── Series (2010) [tmdb-id-xxxx]
+│   ├── Season 00
+│   │   ├── Some Special.mkv
+│   │   ├── Episode S00E01.mkv
+│   │   └── Episode S00E02.mkv
+│   ├── Season 01
+│   │   ├── Episode S01E01-E02.mkv
+│   │   ├── Episode S01E03.mkv
+│   │   └── Episode S01E04.mkv
+│   └── Season 02
+│       ├── Episode S02E01.mkv
+│       ├── Episode S02E02.mkv
+│       ├── Episode S02E03 Part 1.mkv
+│       └── Episode S02E03 Part 2.mkv
+└── Series (2018)
+    ├── Episode S01E01.mkv
+    ├── Episode S01E02.mkv
+    ├── Episode S02E01-E02.mkv
+    └── Episode S02E03.mkv

@@ -10,22 +10,13 @@ from src.tkinter.helpers import get_directory
 
 
 def main():
-    preference_file = "data\preferences.json"
-    user_pref = load_preferences(preference_file)
-
-    # or
-
-    user_pref = load_preferences("data\preferences.json")
-    tm = TMDb()
-    tm.api_key = user_pref["api_key"]
-    tm.language = user_pref["language"]
-    movie = Movie()
+    
 
     folder = get_directory("Select a Folder to parse: ")
 
-    dir_list = os.listdir(folder)
+    chosen_list = os.listdir(folder)
 
-    for item in dir_list:
+    for item in chosen_list:
         item_path = os.path.join(folder, item)
         if os.path.isdir(item_path):
             title = parse_title(item)

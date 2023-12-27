@@ -1,3 +1,7 @@
 
+from .utils.preferences import PreferencesManager
+
+
 def main():
-    pass
+    pm = PreferencesManager()
+    
